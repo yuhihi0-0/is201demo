@@ -1,0 +1,139 @@
+/* 귀엽고 부드러운 Quicksand 글씨체 적용 */
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #fefcf7;
+    /* 전체 배경 아이보리 */
+    color: #4b3b2f;
+}
+
+
+/* 헤더 배경을 아이보리+피치 느낌 파스텔톤으로 변경 */
+
+header {
+    background: linear-gradient(135deg, #fffaf0, #fcefe6);
+    color: #4b3b2f;
+}
+
+
+/* 버튼 디자인 - 살구톤과 브라운톤 */
+
+.btn-primary {
+    background-color: #f7c59f !important;
+    /* 살구색 */
+    border-color: #f7c59f !important;
+    color: white !important;
+}
+
+.btn-outline-dark {
+    border-color: #bfa9a0 !important;
+    color: #6d4c41 !important;
+}
+
+
+/* 강조 텍스트 그라데이션 */
+
+.text-gradient {
+    background: linear-gradient(to right, #fca6a6, #e7d7a3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* 상단 배지(Design · Development · Marketing) 스타일 */
+
+.badge.bg-gradient-primary-to-secondary {
+    background: linear-gradient(to right, #f7c6c9, #f6dcd9) !important;
+    color: #5c4033;
+}
+
+
+/* 네비게이션 링크 hover 효과 부드럽게 */
+
+.nav-link:hover {
+    color: #f7a76c !important;
+    text-decoration: underline;
+}
+
+
+/* 1. 프로필 이미지에 필터 */
+
+.profile-img {
+    filter: brightness(1.05) sepia(0.2) hue-rotate(-10deg) saturate(1.2);
+    border-radius: 2rem;
+}
+
+
+/* 2. 배경 도트 색상 부드럽게 변경 */
+
+.dots-1 path,
+.dots-2 path,
+.dots-3 path,
+.dots-4 path {
+    fill: #e4a79c;
+    /* 연한 베이지톤 */
+    opacity: 0.6;
+}
+
+.idea-line {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.06rem !important;
+    color: #827062!important;
+    letter-spacing: 0.4px;
+    line-height: 1.6;
+}
+
+
+/* Resume 버튼 - 로즈핑크 */
+
+.btn-primary {
+    background-color: #fbc2c2 !important;
+    /* 로즈핑크 */
+    color: white !important;
+    border: none !important;
+    transition: background-color 0.3s ease;
+    border-radius: 1.0rem;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #f9dcde !important;
+    /* 조금 더 진한 핑크 */
+    color: white !important;
+}
+
+
+/* Scratch 버튼 - 연라벤더 */
+
+.btn-outline-dark {
+    background-color: #d9d2e6 !important;
+    /* 연라벤더 */
+    color: white !important;
+    border: none !important;
+    transition: background-color 0.3s ease;
+    border-radius: 1.0rem;
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus,
+.btn-outline-dark:active {
+    background-color: #ebe4f9 !important;
+    /* 호버 시 조금 더 진한 라벤더 */
+    color: white !important;
+}
+
+footer .small {
+    color: #a38e7c !important;
+    /* 부드러운 브라운 계열 */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+    transition: color 0.3s ease;
+}
+
+footer .small:hover {
+    color: #f7a76c !important;
+    /* 살구색 포인트 */
+    text-decoration: underline;
+}

@@ -1,0 +1,355 @@
+body {
+    font-family: 'Comic Neue', cursive;
+    background-color: #fdf6e3;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    background-color: #fffae5;
+    padding: 40px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    background-color: #f9d5e5;
+    padding: 15px;
+}
+
+nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #5c3d2e;
+}
+
+h1 {
+    font-size: 3em;
+    color: #a0522d;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 50px;
+    color: #6a4e42;
+}
+
+.movie-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.movie {
+    background-color: #fff7e6;
+    border: 2px dashed #ffcc70;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.movie img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.park-img {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+iframe {
+    margin-top: 30px;
+    border: 3px solid #a7c5bd;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #fffae5;
+    font-size: 1em;
+}
+
+.popular-characters {
+    padding: 60px 30px;
+    background-color: #fff8e7;
+    text-align: center;
+}
+
+.popular-characters h2 {
+    font-family: 'Comic Neue', cursive;
+    font-size: 2.4em;
+    margin-bottom: 40px;
+    color: #5a3e36;
+}
+
+.character-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.character-card {
+    width: 280px;
+    background-color: #fdf6e3;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.character-card:hover {
+    transform: scale(1.05);
+}
+
+.character-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid #d6b88d;
+}
+
+.character-card h3 {
+    font-family: 'Comic Neue', cursive;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #5a3e36;
+}
+
+.movie-title {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #8e7369;
+}
+
+.character-card ul {
+    list-style-image: url('../assets/images/acorn-icon.png');
+    padding-left: 20px;
+    text-align: left;
+    font-family: 'Comic Neue', cursive;
+    color: #4a3a32;
+}
+
+
+/* 전체 배경 영역에 반투명 베이지 오버레이 */
+
+.header-section {
+    position: relative;
+    background-image: url("images/header_bg.jpg");
+    /* 배경 이미지 경로 */
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+/* 오버레이: 투명한 베이지색 */
+
+.header-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 235, 205, 0.3);
+    /* beige overlay */
+    z-index: 1;
+}
+
+
+/* 글씨와 아이콘이 오버레이 위로 올라오도록 설정 */
+
+.main-title {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* 굵은 타이틀 글씨 스타일 */
+
+.main-text {
+    font-size: 60px;
+    font-family: 'Baloo 2', cursive;
+    /* 귀여운 애니메이션 스타일 */
+    color: #3a2e25;
+    text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+}
+
+#fixed-character {
+    position: fixed;
+    top: 200px;
+    right: -90px;
+    width: 300px;
+    height: auto;
+    z-index: 999;
+    animation: twinkle 2s infinite;
+    transition: transform 0.3s ease;
+}
+
+#fixed-character:hover {
+    animation: shake 0.5s ease infinite;
+    cursor: pointer;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(2deg);
+    }
+    50% {
+        transform: rotate(-2deg);
+    }
+    75% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+#fixed-character {
+    animation: twinkle 2s infinite;
+}
+
+.resume-link {
+    position: fixed;
+    top: 500px;
+    right: -90px;
+    width: 300px;
+    height: auto;
+    z-index: 999;
+    animation: twinkle 2s infinite;
+    transition: transform 0.3s ease;
+}
+
+.resume-icon {
+    width: 90px;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.resume-icon:hover {
+    transform: scale(1.05);
+}
+
+.resume-text {
+    font-size: 0.9rem;
+    color: #5e503f;
+    margin-top: -18px;
+    font-weight: 100;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.back-to-top {
+    display: inline-block;
+    background-color: #fceec0;
+    color: #4b2e05;
+    padding: 10px 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Comic Neue', cursive;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.back-to-top:hover {
+    transform: scale(1.1);
+    background-color: #fffae6;
+}
+
+.character-label-wrapper {
+    position: fixed;
+    top: 300px;
+    right: -140px;
+    width: 300px;
+    z-index: 999;
+}
+
+.character-label-wrapper img {
+    width: 100%;
+    height: auto;
+}
+
+.character-label {
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    font-family: 'Comic Neue', cursive;
+    font-size: 15px;
+    color: #4e3a2e;
+    transform: rotate(-8deg);
+    text-shadow: 2px 1px #f8f4eb;
+}
+
+#home-logo {
+    position: fixed;
+    top: 30px;
+    left: 10px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.home-label {
+    font-family: 'Comic Neue', cursive;
+    font-size: 19px;
+    color: #ffffff;
+    background: #806940;
+    padding: 4px 10px;
+    border-radius: 20px 20px 0 0;
+    transform: rotate(-10deg);
+    margin-bottom: -2px;
+    box-shadow: 1px 1px 4px rgba(212, 207, 153, 0.5);
+}
+
+#home-logo img {
+    width: 150px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+#home-logo:hover img {
+    transform: scale(1.1);
+}

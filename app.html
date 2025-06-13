@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Studio Ghibli Jeopardy</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(to bottom, #fefae0, #faedcd);
+            color: #4e342e;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            background-color: #d4a373;
+            color: #fffbea;
+            margin: 0;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        #navButton {
+            margin-top: 1rem;
+        }
+        
+        #navButton a {
+            text-decoration: none;
+            color: white;
+            background-color: #dfcab8;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        #navButton a:hover {
+            background-color: #e3aca2;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        
+        .cell {
+            background-color: #6c584c;
+            color: white;
+            padding: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+        
+        .cell:hover {
+            transform: scale(1.05);
+            background-color: #8d7b68;
+        }
+        
+        .question {
+            display: none;
+            padding: 20px;
+            background-color: #fffaf0;
+            border: 2px dashed #d4a373;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+        
+        #score {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            color: #5e503f;
+            font-weight: bold;
+        }
+        
+        input[type="text"] {
+            padding: 8px;
+            margin: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            padding: 8px 15px;
+            font-size: 1rem;
+            background-color: #e9c46a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .disabled {
+            background-color: #ccc !important;
+            cursor: not-allowed;
+        }
+        
+        #endGameMessage {
+            display: none;
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #6d6875;
+            font-weight: bold;
+            background: #fef6e4;
+            padding: 20px;
+            border-radius: 15px;
+            animation: pop 0.5s ease-in-out;
+        }
+        
+        @keyframes pop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Studio Ghibli Jeopardy</h1>
+
+
+
+    <div id="score">Score: 0</div>
+    <div class="board" id="board"></div>
+
+    <div id="questionBox" class="question">
+        <p id="questionText"></p>
+        <input type="text" id="answerInput" placeholder="Your answer here" />
+        <button id="submitAnswer">Submit</button>
+        <p id="feedback"></p>
+    </div>
+
+    <div id="endGameMessage">
+        🏆 Congratulations! You've finished the game! <br><br>
+        <button onclick="resetGame()">Play Again</button>
+    </div>
+    <div id="navButton">
+        <a href="scratch.html">← Back to Scratch Page</a>
+    </div>
+
+    <script>
+        const categories = ["Characters", "Movies", "Quotes", "Animals", "Magic"];
+        const board = document.getElementById("board");
+        const questionBox = document.getElementById("questionBox");
+        const questionText = document.getElementById("questionText");
+        const answerInput = document.getElementById("answerInput");
+        const submitButton = document.getElementById("submitAnswer");
+        const feedback = document.getElementById("feedback");
+        const scoreDisplay = document.getElementById("score");
+        const endGameMessage = document.getElementById("endGameMessage");
+
+        let currentCell = null;
+        let currentAnswer = "";
+        let attempts = 0;
+        let score = 0;
+        let totalQuestions = 25;
+        let answeredQuestions = 0;
+
+        const questions = {
+            "Characters": [{
+                q: "Who is the fluffy forest spirit in *My Neighbor Totoro*?",
+                a: "totoro"
+            }, {
+                q: "Who is the fire demon in *Howl's Moving Castle*?",
+                a: "calcifer"
+            }, {
+                q: "What character turns into a pig in *Porco Rosso*?",
+                a: "porco"
+            }, {
+                q: "Who is the main girl in *Kiki's Delivery Service*?",
+                a: "kiki"
+            }, {
+                q: "What small creature helps the Forest Spirit in *Princess Mononoke*?",
+                a: "kodama"
+            }],
+            "Movies": [{
+                q: "Which film won an Academy Award in 2003?",
+                a: "spirited away"
+            }, {
+                q: "Which movie features a floating castle?",
+                a: "howl's moving castle"
+            }, {
+                q: "What movie is about a girl running a bathhouse?",
+                a: "spirited away"
+            }, {
+                q: "Which Ghibli film is about two sisters and a cat bus?",
+                a: "my neighbor totoro"
+            }, {
+                q: "Which movie has a war, a curse, and a moving castle?",
+                a: "howl's moving castle"
+            }],
+            "Quotes": [{
+                q: "'Once you've met someone, you never really forget them' — Who said this?",
+                a: "zeniba"
+            }, {
+                q: "'Life is suffering. It is hard. The world is cursed.' — Which movie?",
+                a: "princess mononoke"
+            }, {
+                q: "'There’s no future for people who worship the future...' Finish it.",
+                a: "without respecting the past"
+            }, {
+                q: "'I hate humans. I hate them all.' — Who said this?",
+                a: "san"
+            }, {
+                q: "'You're beautiful!' — 'I know.' Who said it?",
+                a: "howl"
+            }],
+            "Animals": [{
+                q: "What animal is Catbus?",
+                a: "cat"
+            }, {
+                q: "What creature is Jiji?",
+                a: "cat"
+            }, {
+                q: "What animal form does the witch turn Sophie into?",
+                a: "old woman"
+            }, {
+                q: "What giant sea creature appears in *Ponyo*?",
+                a: "fish"
+            }, {
+                q: "What creature is Haku’s dragon form?",
+                a: "dragon"
+            }],
+            "Magic": [{
+                q: "What power does Howl have?",
+                a: "magic"
+            }, {
+                q: "Who runs the bathhouse in *Spirited Away*?",
+                a: "yubaba"
+            }, {
+                q: "What is Calcifer’s job?",
+                a: "power the castle"
+            }, {
+                q: "What magical item lets Sophie travel through time?",
+                a: "ring"
+            }, {
+                q: "Who breaks the spell on Howl?",
+                a: "sophie"
+            }]
+        };
+
+        categories.forEach(cat => {
+            const header = document.createElement("div");
+            header.className = "cell";
+            header.innerText = cat;
+            header.style.backgroundColor = "#a98467";
+            board.appendChild(header);
+        });
+
+        for (let i = 0; i < 5; i++) {
+            categories.forEach(cat => {
+                const cell = document.createElement("div");
+                cell.className = "cell";
+                const point = (i + 1) * 100;
+                cell.innerText = point;
+
+                cell.addEventListener("click", function() {
+                    if (cell.classList.contains("disabled")) return;
+
+                    currentCell = cell;
+                    currentAnswer = questions[cat][i].a;
+                    questionText.innerText = questions[cat][i].q;
+                    questionBox.style.display = "block";
+                    answerInput.value = "";
+                    feedback.innerText = "";
+                    attempts = 0;
+                });
+
+                board.appendChild(cell);
+            });
+        }
+
+        submitButton.addEventListener("click", function() {
+            if (!currentCell || currentCell.classList.contains("disabled")) return;
+
+            const userAnswer = answerInput.value.toLowerCase().trim();
+            attempts++;
+
+            if (userAnswer === currentAnswer) {
+                feedback.innerText = "🎉 Correct! Totoro is proud of you!";
+                currentCell.classList.add("disabled");
+                setTimeout(() => {
+                    score += parseInt(currentCell.innerText);
+                    questionBox.style.display = "none";
+                    updateScore();
+                    updateProgress();
+                }, 1500);
+            } else {
+                if (attempts < 3) {
+                    feedback.innerText = `❌ Try again! (${attempts}/2)`;
+                } else {
+                    feedback.innerText = "😢 Out of tries!";
+                    currentCell.classList.add("disabled");
+                    setTimeout(() => {
+                        questionBox.style.display = "none";
+                        updateProgress();
+                    }, 1000);
+                }
+            }
+        });
+
+        function updateScore() {
+            scoreDisplay.innerText = `Score: ${score}`;
+        }
+
+        function updateProgress() {
+            answeredQuestions++;
+            if (answeredQuestions === totalQuestions) {
+                endGameMessage.style.display = "block";
+            }
+        }
+
+        function resetGame() {
+            location.reload();
+        }
+    </script>
+
+</body>
+
+</html>
